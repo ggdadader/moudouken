@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-TW"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;品味旅遊助手 - 推薦結果&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 基礎 CSS 沿用 Profile 頁面風格 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f4f7f6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: flex-start; /* 調整為從頂部開始排列 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 700px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h2 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-group {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"] {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-grow: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ddd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #007bff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #0056b3;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 推薦結果列表樣式 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#recommendationsList {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #eee;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f9f9f9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-item h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tags {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #6c757d;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.match-score {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: green;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;🎯 品味推薦結果&lt;/h2&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="search-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="locationInput" placeholder="請輸入旅遊地點 (例如: 東京)" value="東京"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="searchBtn"&gt;開始推薦&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="statusMessage"&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3&gt;推薦景點與活動：&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;ul id="recommendationsList"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script type="module"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 引入 Firebase 函式庫</p>
+<p class="p1"><span class="Apple-converted-space">    </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// -----------------------------------------------------------</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// TODO: 請在此處填入您的 Firebase 專案配置資訊！ (與 profile_input.html 相同)</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// -----------------------------------------------------------</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// For Firebase JS SDK v7.20.0 and later, measurementId is optional</p>
+<p class="p1">const firebaseConfig = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>authDomain: "moudouken.firebaseapp.com",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>projectId: "moudouken",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>storageBucket: "moudouken.firebasestorage.app",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>messagingSenderId: "72234130648",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>appId: "1:72234130648:web:222bb9de00befe0a0d0bad",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>measurementId: "G-3CW2C5QCRD"</p>
+<p class="p1">};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 初始化 Firebase</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let app;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let db;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (firebaseConfig.apiKey) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>app = initializeApp(firebaseConfig);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>db = getFirestore(app);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.warn("尚未設定 firebaseConfig。");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error("Firebase 初始化失敗", e);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 這裡我們暫時用硬編碼的標籤來模擬用戶的品味</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// **注意：在進階版本中，我們需要修改這裡來讀取 Firestore 中的 User_Profiles 資料**</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const USER_PREFS_TAGS = ['ACG-科幻', '現代藝術', '都市漫步'];<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const searchBtn = document.getElementById('searchBtn');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const locationInput = document.getElementById('locationInput');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const recommendationsList = document.getElementById('recommendationsList');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const statusMessage = document.getElementById('statusMessage');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// --- 核心推薦邏輯：從 Firestore 讀取並匹配標籤 ---</p>
+<p class="p1"><span class="Apple-converted-space">    </span>async function fetchAndRecommend(location) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>recommendationsList.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>statusMessage.innerHTML = '搜尋中...';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>searchBtn.disabled = true;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!db) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusMessage.innerHTML = '&lt;span class="error"&gt;錯誤：資料庫未連接。&lt;/span&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>searchBtn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 1. 建立查詢：先篩選地點</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// POI 集合名稱：'Points_of_Interest'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const poiCollection = collection(db, 'Points_of_Interest');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 創建查詢：只搜尋地點相符的 POI</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const locationQuery = query(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>poiCollection,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>where('地點', '==', location) // 欄位名稱要與您的 POI 集合完全匹配</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const querySnapshot = await getDocs(locationQuery);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const allLocationPOIs = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>querySnapshot.forEach((doc) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>allLocationPOIs.push({ id: doc.id, ...doc.data() });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 2. 實作標籤匹配邏輯</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const recommendedPOIs = [];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>allLocationPOIs.forEach(poi =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let matchCount = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 確保 POI 的 '內容標籤' 欄位是陣列</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (Array.isArray(poi.內容標籤)) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>poi.內容標籤.forEach(poiTag =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>// 檢查 POI 標籤是否在用戶偏好標籤列表 USER_PREFS_TAGS 中</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (USER_PREFS_TAGS.includes(poiTag)) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>matchCount++;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 如果至少匹配到一個標籤，則將其加入推薦列表</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (matchCount &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>recommendedPOIs.push({<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>...poi,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>matchScore: matchCount // 以匹配標籤數量作為分數</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 3. 排序與顯示結果</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 依匹配分數由高到低排序</p>
+<p class="p1"><span class="Apple-converted-space">            </span>recommendedPOIs.sort((a, b) =&gt; b.matchScore - a.matchScore);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (recommendedPOIs.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusMessage.innerHTML = `&lt;span style="color:#ff6600;"&gt;在 ${location} 找不到符合您品味 (${USER_PREFS_TAGS.join(', ')}) 的活動/景點。&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recommendedPOIs.forEach(poi =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const listItem = document.createElement('li');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>listItem.className = 'recommendation-item';</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>listItem.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3&gt;${poi.名稱} (${poi.地點})&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="tags"&gt;標籤: ${poi.內容標籤 ? poi.內容標籤.join(', ') : '無'}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="match-score"&gt;品味匹配度: ${poi.matchScore} 個標籤&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>recommendationsList.appendChild(listItem);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>statusMessage.innerHTML = `&lt;span class="success"&gt;成功找到 ${recommendedPOIs.length} 個推薦項目！&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.error("搜尋推薦時發生錯誤: ", error);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusMessage.innerHTML = `&lt;span class="error"&gt;資料讀取失敗，請檢查 Firestore 連線和規則。&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} finally {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>searchBtn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>searchBtn.textContent = '重新推薦';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 事件監聽：按下按鈕時觸發推薦</p>
+<p class="p1"><span class="Apple-converted-space">    </span>searchBtn.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const location = locationInput.value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (location) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fetchAndRecommend(location);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>statusMessage.innerHTML = '&lt;span class="error"&gt;請輸入旅遊地點！&lt;/span&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 頁面加載後自動執行一次</p>
+<p class="p1"><span class="Apple-converted-space">    </span>fetchAndRecommend(locationInput.value.trim());</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
