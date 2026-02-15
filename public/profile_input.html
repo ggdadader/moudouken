@@ -125,6 +125,10 @@
 
       <div class="form-group">
         <label class="field-label">藝術偏好 (Art Preferences)</label>
+        <div class="form-group">
+          <label class="field-label" for="user_recommend">分享一個您的私藏景點/藝術空間</label>
+          <input type="text" id="user_recommend" name="user_recommend" placeholder="例如：某家古著店或特色藝廊">
+        </div>
         <div class="checkbox-group">
           <label class="checkbox-item"><input type="checkbox" name="art_prefs" value="ACG-科幻"> ACG-科幻</label>
           <label class="checkbox-item"><input type="checkbox" name="art_prefs" value="現代藝術"> 現代藝術</label>
@@ -165,13 +169,14 @@
       const nickname = document.getElementById('nickname').value;
       const travelPrefs = Array.from(document.querySelectorAll('input[name="travel_prefs"]:checked')).map(cb => cb.value);
       const artPrefs = Array.from(document.querySelectorAll('input[name="art_prefs"]:checked')).map(cb => cb.value);
+      const userRecommend = document.getElementById('user_recommend').value;
 
       try {
-        // 寫入 Firestore
         await addDoc(collection(db, 'User_Profiles'), {
           nickname: nickname,
           travel_prefs: travelPrefs,
           art_prefs: artPrefs,
+          user_recommend: userRecommend, // 把私藏景點存進去
           created_at: new Date()
         });
 

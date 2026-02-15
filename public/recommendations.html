@@ -74,56 +74,56 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, query, orderBy, limit, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
-      authDomain: "moudouken.firebaseapp.com",
-      projectId: "moudouken",
-      storageBucket: "moudouken.firebasestorage.app",
-      messagingSenderId: "72234130648",
-      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
-    };
-
+    const firebaseConfig = { /* 你的 Config 保持不變 */ };
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    async function fetchLatestProfile() {
+    async function fetchRecommendation() {
       try {
-        const q = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
-        const querySnapshot = await getDocs(q);
+        // 1. 抓取「目前使用者」的最新資料
+        const qLatest = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
+        const snapLatest = await getDocs(qLatest);
 
-        if (!querySnapshot.empty) {
-          const latestData = querySnapshot.docs[0].data();
+        if (snapLatest.empty) return;
+        const currentUser = snapLatest.docs[0].data();
+        document.getElementById('userName').textContent = currentUser.nickname;
 
-          // 這裡加上一個保險檢查
-          const nameElement = document.getElementById('userName');
-          const recommendText = document.querySelector('.recommendation-box p');
+        // 2. 尋找「偏好相似」的其他使用者
+        // 這裡我們先簡單用「其中一個旅遊偏好一樣」來當作相似
+        const myFirstPref = currentUser.travel_prefs[0] || "都市漫步";
 
-          if (nameElement) {
-            nameElement.textContent = latestData.nickname || "旅行者";
+        const qSimilar = query(
+          collection(db, "User_Profiles"),
+          where("travel_prefs", "array-contains", myFirstPref),
+          limit(5)
+        );
+
+        const snapSimilar = await getDocs(qSimilar);
+        let suggestions = [];
+
+        snapSimilar.forEach(doc => {
+          const data = doc.data();
+          // 排除掉自己，且要有推薦內容
+          if (data.nickname !== currentUser.nickname && data.user_recommend) {
+            suggestions.push(`${data.nickname} 推薦了：${data.user_recommend}`);
           }
+        });
 
-          if (recommendText) {
-            const travelPrefs = latestData.travel_prefs || [];
-            if (travelPrefs.includes("戶外探險")) {
-              recommendText.textContent = "嘿！既然你喜歡戶外探險，今天推薦你去象山步道走走！";
-            } else if (travelPrefs.includes("歷史古蹟")) {
-              recommendText.textContent = "既然你對歷史感興趣，大稻埕的古宅建築非常適合你。";
-            }
-          }
+        // 3. 顯示結果
+        const recommendBox = document.querySelector('.recommendation-box p');
+        if (suggestions.length > 0) {
+          recommendBox.innerHTML = "根據與您偏好相似的使用者推薦：<br>● " + suggestions.join("<br>● ");
+        } else {
+          recommendBox.textContent = "目前還沒有跟你偏好相似的人分享，快邀請朋友來填寫吧！";
         }
+
       } catch (error) {
-        console.error("讀取資料失敗:", error);
+        console.error(error);
       }
     }
-
-    // 關鍵修改：確保 DOM 樹都長好了再跑
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fetchLatestProfile);
-    } else {
-      fetchLatestProfile();
-    }
+    window.onload = fetchRecommendation;
   </script>
 </body>
 
