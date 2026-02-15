@@ -1,45 +1,122 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="zh-TW">
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
-    authDomain: "moudouken.firebaseapp.com",
-    projectId: "moudouken",
-    storageBucket: "moudouken.firebasestorage.app",
-    messagingSenderId: "72234130648",
-    appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function fetchLatestProfile() {
-    try {
-      // 1. 從 User_Profiles 集合中，依照時間排序，抓取最新的一筆
-      const q = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        const latestData = querySnapshot.docs[0].data();
-
-        // 2. 更新頁面上的暱稱
-        document.getElementById('userName').textContent = latestData.nickname || "旅行者";
-
-        // 3. (進階) 根據偏好顯示不同推薦 (範例)
-        const travelPrefs = latestData.travel_prefs || [];
-        const recommendText = document.querySelector('.recommendation-box p');
-
-        if (travelPrefs.includes("戶外探險")) {
-          recommendText.textContent = "嘿！既然你喜歡戶外探險，今天推薦你去象山步道走走，俯瞰整個城市美景！";
-        } else if (travelPrefs.includes("歷史古蹟")) {
-          recommendText.textContent = "既然你對歷史感興趣，大稻埕的古宅建築與茶文化非常適合你。";
-        }
-      }
-    } catch (error) {
-      console.error("讀取資料失敗:", error);
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品味推薦結果</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      padding: 20px;
+      text-align: center;
     }
-  }
 
-  fetchLatestProfile();
-</script>
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-text {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .recommendation-box {
+      background: #f9f9f9;
+      border-left: 5px solid #27ae60;
+      padding: 20px;
+      text-align: left;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>專屬您的品味推薦</h1>
+    <p class="welcome-text">你好，<span id="userName">旅行者</span>！</p>
+
+    <div class="recommendation-box">
+      <h3>✨ 今日推薦</h3>
+      <p>根據您的偏好，我們建議您今天可以前往附近的藝術館進行一場心靈之旅，或是尋找一家隱藏在巷弄中的特色咖啡廳享受悠閒時光。</p>
+    </div>
+
+    <a href="profile_input.html" class="back-btn">重新填寫檔案</a>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
+      authDomain: "moudouken.firebaseapp.com",
+      projectId: "moudouken",
+      storageBucket: "moudouken.firebasestorage.app",
+      messagingSenderId: "72234130648",
+      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function fetchLatestProfile() {
+      try {
+        // 1. 從 User_Profiles 集合中，依照時間排序，抓取最新的一筆
+        const q = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const latestData = querySnapshot.docs[0].data();
+
+          // 2. 更新頁面上的暱稱
+          document.getElementById('userName').textContent = latestData.nickname || "旅行者";
+
+          // 3. (進階) 根據偏好顯示不同推薦 (範例)
+          const travelPrefs = latestData.travel_prefs || [];
+          const recommendText = document.querySelector('.recommendation-box p');
+
+          if (travelPrefs.includes("戶外探險")) {
+            recommendText.textContent = "嘿！既然你喜歡戶外探險，今天推薦你去象山步道走走，俯瞰整個城市美景！";
+          } else if (travelPrefs.includes("歷史古蹟")) {
+            recommendText.textContent = "既然你對歷史感興趣，大稻埕的古宅建築與茶文化非常適合你。";
+          }
+        }
+      } catch (error) {
+        console.error("讀取資料失敗:", error);
+      }
+    }
+
+    fetchLatestProfile();
+  </script>
+</body>
+
+</html>
