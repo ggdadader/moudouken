@@ -90,24 +90,27 @@
 
     async function fetchLatestProfile() {
       try {
-        // 1. 從 User_Profiles 集合中，依照時間排序，抓取最新的一筆
         const q = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
           const latestData = querySnapshot.docs[0].data();
 
-          // 2. 更新頁面上的暱稱
-          document.getElementById('userName').textContent = latestData.nickname || "旅行者";
-
-          // 3. (進階) 根據偏好顯示不同推薦 (範例)
-          const travelPrefs = latestData.travel_prefs || [];
+          // 這裡加上一個保險檢查
+          const nameElement = document.getElementById('userName');
           const recommendText = document.querySelector('.recommendation-box p');
 
-          if (travelPrefs.includes("戶外探險")) {
-            recommendText.textContent = "嘿！既然你喜歡戶外探險，今天推薦你去象山步道走走，俯瞰整個城市美景！";
-          } else if (travelPrefs.includes("歷史古蹟")) {
-            recommendText.textContent = "既然你對歷史感興趣，大稻埕的古宅建築與茶文化非常適合你。";
+          if (nameElement) {
+            nameElement.textContent = latestData.nickname || "旅行者";
+          }
+
+          if (recommendText) {
+            const travelPrefs = latestData.travel_prefs || [];
+            if (travelPrefs.includes("戶外探險")) {
+              recommendText.textContent = "嘿！既然你喜歡戶外探險，今天推薦你去象山步道走走！";
+            } else if (travelPrefs.includes("歷史古蹟")) {
+              recommendText.textContent = "既然你對歷史感興趣，大稻埕的古宅建築非常適合你。";
+            }
           }
         }
       } catch (error) {
@@ -115,7 +118,12 @@
       }
     }
 
-    fetchLatestProfile();
+    // 關鍵修改：確保 DOM 樹都長好了再跑
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fetchLatestProfile);
+    } else {
+      fetchLatestProfile();
+    }
   </script>
 </body>
 
