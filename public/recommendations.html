@@ -7,7 +7,7 @@
   <title>品味推薦結果</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f7f6;
       padding: 20px;
       text-align: center;
@@ -15,25 +15,46 @@
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       max-width: 600px;
-      margin: 20px auto;
+      margin: 30px auto;
     }
 
     h1 {
       color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-text {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .recommendation-box {
+      background: #f9f9f9;
+      border-left: 5px solid #27ae60;
+      padding: 20px;
+      text-align: left;
+      border-radius: 8px;
+      margin-bottom: 2rem;
     }
 
     .back-btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: #3498db;
       color: white;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #2980b9;
     }
   </style>
 </head>
@@ -41,12 +62,21 @@
 <body>
   <div class="card">
     <h1>專屬您的品味推薦</h1>
-    <p id="welcomeMsg">正在讀取您的偏好...</p>
-    <div id="recommendationList">
-      <p>根據您的選擇，我們建議您可以前往附近的藝術館或特色咖啡廳。</p>
+    <p class="welcome-text">你好，<span id="userName">旅行者</span>！</p>
+
+    <div class="recommendation-box">
+      <h3>✨ 今日推薦</h3>
+      <p>根據您的偏好，我們建議您今天可以前往附近的藝術館進行一場心靈之旅，或是尋找一家隱藏在巷弄中的特色咖啡廳享受悠閒時光。</p>
     </div>
-    <a href="profile_input.html" class="back-btn">重新填寫</a>
+
+    <a href="profile_input.html" class="back-btn">重新填寫檔案</a>
   </div>
+
+  <script type="module">
+    // 這部分原本可以加上讀取 Firestore 資料的邏輯，但為了避免顯示延遲，
+    // 我們這裡先讓頁面能正常顯示排版。
+    console.log("頁面載入完成");
+  </script>
 </body>
 
 </html>
