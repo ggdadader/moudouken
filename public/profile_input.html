@@ -7,8 +7,8 @@
   <title>品味旅遊助手 - 建立個人檔案</title>
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #f4f7f6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,51 +18,89 @@
 
     .container {
       background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       width: 100%;
       max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 2rem;
     }
 
     .form-group {
       margin-bottom: 1.5rem;
     }
 
-    label {
+    label.field-label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       font-weight: bold;
+      color: #34495e;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ddd;
-      border-radius: 6px;
+      border-radius: 8px;
       box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .checkbox-item input {
+      margin-right: 12px;
+      transform: scale(1.2);
     }
 
     button {
       width: 100%;
-      padding: 12px;
-      background-color: #007bff;
+      padding: 14px;
+      background-color: #27ae60;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #219150;
+    }
+
+    #statusMessage {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.9rem;
     }
 
     .success {
-      color: green;
+      color: #27ae60;
     }
 
     .error {
-      color: red;
+      color: #e74c3c;
     }
   </style>
 </head>
@@ -72,9 +110,28 @@
     <h2>建立您的品味檔案</h2>
     <form id="profileForm">
       <div class="form-group">
-        <label for="nickname">暱稱 (Nickname)</label>
+        <label class="field-label" for="nickname">暱稱 (Nickname)</label>
         <input type="text" id="nickname" name="nickname" placeholder="請輸入您的暱稱" required>
       </div>
+
+      <div class="form-group">
+        <label class="field-label">旅遊偏好 (Travel Preferences)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item"><input type="checkbox" name="travel_prefs" value="都市漫步"> 都市漫步</label>
+          <label class="checkbox-item"><input type="checkbox" name="travel_prefs" value="歷史古蹟"> 歷史古蹟</label>
+          <label class="checkbox-item"><input type="checkbox" name="travel_prefs" value="戶外探險"> 戶外探險</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label">藝術偏好 (Art Preferences)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item"><input type="checkbox" name="art_prefs" value="ACG-科幻"> ACG-科幻</label>
+          <label class="checkbox-item"><input type="checkbox" name="art_prefs" value="現代藝術"> 現代藝術</label>
+          <label class="checkbox-item"><input type="checkbox" name="art_prefs" value="電影-獨立製片"> 電影-獨立製片</label>
+        </div>
+      </div>
+
       <button type="submit" id="submitBtn">儲存 Profile</button>
     </form>
     <div id="statusMessage"></div>
@@ -84,6 +141,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+    // Firebase 配置資訊
     const firebaseConfig = {
       apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
       authDomain: "moudouken.firebaseapp.com",
@@ -101,16 +159,33 @@
       const btn = document.getElementById('submitBtn');
       const msg = document.getElementById('statusMessage');
       btn.disabled = true;
+      btn.textContent = "儲存中...";
+
+      // 收集資料
+      const nickname = document.getElementById('nickname').value;
+      const travelPrefs = Array.from(document.querySelectorAll('input[name="travel_prefs"]:checked')).map(cb => cb.value);
+      const artPrefs = Array.from(document.querySelectorAll('input[name="art_prefs"]:checked')).map(cb => cb.value);
+
       try {
+        // 寫入 Firestore
         await addDoc(collection(db, 'User_Profiles'), {
-          nickname: document.getElementById('nickname').value,
+          nickname: nickname,
+          travel_prefs: travelPrefs,
+          art_prefs: artPrefs,
           created_at: new Date()
         });
-        msg.innerHTML = '<span class="success">儲存成功！</span>';
+
+        msg.innerHTML = '<span class="success">儲存成功！正在跳轉...</span>';
+
+        // 成功後跳轉到推薦頁面 (請確保該檔案存在)
+        setTimeout(() => {
+          window.location.href = 'recommendations.html';
+        }, 1500);
+
       } catch (error) {
         msg.innerHTML = '<span class="error">錯誤：' + error.message + '</span>';
-      } finally {
         btn.disabled = false;
+        btn.textContent = "儲存 Profile";
       }
     });
   </script>
