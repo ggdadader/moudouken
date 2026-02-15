@@ -1,276 +1,119 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品味旅遊助手 - 建立個人檔案</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
   </style>
 </head>
+
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="zh-TW"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;品味旅遊助手 - 建立個人檔案&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* 簡單的 CSS 美化 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #f4f7f6;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>min-height: 100vh;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.container {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: white;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 2rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(0,0,0,0.1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-width: 500px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h2 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 1.5rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-group {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 1.5rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>label.field-label {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 0.5rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #555;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input[type="text"] {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 1px solid #ddd;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.checkbox-group {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-direction: column;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gap: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #f9f9f9;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.checkbox-item {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.checkbox-item input {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-right: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: scale(1.2);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #007bff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background 0.3s;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:hover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #0056b3;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:disabled {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #ccc;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: not-allowed;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#statusMessage {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 15px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.9rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.success { color: green; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.error { color: red; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;建立您的品味檔案&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;form id="profileForm"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label class="field-label" for="nickname"&gt;暱稱 (Nickname)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="nickname" name="nickname" placeholder="請輸入您的暱稱" required&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label class="field-label"&gt;旅遊偏好 (Travel Preferences)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="checkbox-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="travel_prefs" value="都市漫步"&gt; 都市漫步</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="travel_prefs" value="歷史古蹟"&gt; 歷史古蹟</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="travel_prefs" value="戶外探險"&gt; 戶外探險</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label class="field-label"&gt;藝術偏好 (Art Preferences)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="checkbox-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="art_prefs" value="ACG-科幻"&gt; ACG-科幻</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="art_prefs" value="現代藝術"&gt; 現代藝術</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="checkbox-item"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" name="art_prefs" value="電影-獨立製片"&gt; 電影-獨立製片</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button type="submit" id="submitBtn"&gt;儲存 Profile&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="statusMessage"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script type="module"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 引入 Firebase 函式庫 (使用 CDN)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// -----------------------------------------------------------</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// TODO: 請在此處填入您的 Firebase 專案配置資訊 (非常重要！)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// -----------------------------------------------------------</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Import the functions you need from the SDKs you need</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// TODO: Add SDKs for Firebase products that you want to use</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// https://firebase.google.com/docs/web/setup#available-libraries</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Your web app's Firebase configuration</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// For Firebase JS SDK v7.20.0 and later, measurementId is optional</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const firebaseConfig = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>authDomain: "moudouken.firebaseapp.com",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>projectId: "moudouken",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>storageBucket: "moudouken.firebasestorage.app",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>messagingSenderId: "72234130648",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>appId: "1:72234130648:web:222bb9de00befe0a0d0bad",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>measurementId: "G-3CW2C5QCRD"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Initialize Firebase</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const app = initializeApp(firebaseConfig);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const analytics = getAnalytics(app);</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 初始化 Firebase</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let app;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let db;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>try {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!firebaseConfig.apiKey) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>console.warn("尚未設定 firebaseConfig，請在程式碼中填入配置資訊。");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('statusMessage').innerHTML = '&lt;span class="error"&gt;錯誤：請先在程式碼中設定 Firebase Config&lt;/span&gt;';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} else {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>app = initializeApp(firebaseConfig);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>db = getFirestore(app);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>} catch (e) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>console.error("Firebase 初始化失敗", e);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 處理表單提交</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const profileForm = document.getElementById('profileForm');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const submitBtn = document.getElementById('submitBtn');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const statusMessage = document.getElementById('statusMessage');</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>profileForm.addEventListener('submit', async (e) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>e.preventDefault(); // 防止頁面重新整理</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!db) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>alert("資料庫尚未連結，請檢查程式碼設定。");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// 1. 鎖定按鈕避免重複提交</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>submitBtn.disabled = true;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>submitBtn.textContent = "儲存中...";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>statusMessage.textContent = "";</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// 2. 收集資料</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const nickname = document.getElementById('nickname').value;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// 取得勾選的「旅遊偏好」並轉為 Array</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const travelCheckboxes = document.querySelectorAll('input[name="travel_prefs"]:checked');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const travelPrefsArray = Array.from(travelCheckboxes).map(cb =&gt; cb.value);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// 取得勾選的「藝術偏好」並轉為 Array</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const artCheckboxes = document.querySelectorAll('input[name="art_prefs"]:checked');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const artPrefsArray = Array.from(artCheckboxes).map(cb =&gt; cb.value);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// 準備寫入的資料物件</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const userProfileData = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>nickname: nickname,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>travel_prefs: travelPrefsArray,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>art_prefs: artPrefsArray,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>created_at: new Date()</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>try {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// 3. 寫入 Firebase Firestore 到 'User_Profiles' 集合</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const docRef = await addDoc(collection(db, 'User_Profiles'), userProfileData);</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>console.log("Document written with ID: ", docRef.id);</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// 4. 成功回饋</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>statusMessage.innerHTML = '&lt;span class="success"&gt;儲存成功！資料 ID: ' + docRef.id + '&lt;/span&gt;';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>profileForm.reset(); // 清空表單</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} catch (error) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>console.error("Error adding document: ", error);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>statusMessage.innerHTML = '&lt;span class="error"&gt;儲存失敗：' + error.message + '&lt;/span&gt;';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} finally {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// 5. 恢復按鈕狀態</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>submitBtn.disabled = false;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>submitBtn.textContent = "儲存 Profile";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+  <div class="container">
+    <h2>建立您的品味檔案</h2>
+    <form id="profileForm">
+      <div class="form-group">
+        <label for="nickname">暱稱 (Nickname)</label>
+        <input type="text" id="nickname" name="nickname" placeholder="請輸入您的暱稱" required>
+      </div>
+      <button type="submit" id="submitBtn">儲存 Profile</button>
+    </form>
+    <div id="statusMessage"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
+      authDomain: "moudouken.firebaseapp.com",
+      projectId: "moudouken",
+      storageBucket: "moudouken.firebasestorage.app",
+      messagingSenderId: "72234130648",
+      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const msg = document.getElementById('statusMessage');
+      btn.disabled = true;
+      try {
+        await addDoc(collection(db, 'User_Profiles'), {
+          nickname: document.getElementById('nickname').value,
+          created_at: new Date()
+        });
+        msg.innerHTML = '<span class="success">儲存成功！</span>';
+      } catch (error) {
+        msg.innerHTML = '<span class="error">錯誤：' + error.message + '</span>';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
+
 </html>
