@@ -1,0 +1,26 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    // *** 請從這裡開始新增 ***
+    "headers": [
+      {
+        "source": "**/*.html",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/html; charset=utf-8"
+          }
+        ]
+      }
+    ]
+    // *** 新增到這裡結束 ***
+  },
+  "database": {
+    "rules": "database.rules.json"
+  }
+}
