@@ -1,103 +1,191 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>品味二分法測驗</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .quiz-card { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
-        .progress { font-size: 0.8rem; color: #888; margin-bottom: 1rem; }
-        h2 { color: #2c3e50; margin-bottom: 2rem; min-height: 3em; display: flex; align-items: center; justify-content: center; }
-        .options { display: flex; flex-direction: column; gap: 15px; }
-        .option-btn { padding: 15px; border: 2px solid #3498db; border-radius: 12px; background: white; color: #3498db; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .option-btn:hover { background: #3498db; color: white; }
-        #nickname-section { display: block; }
-        #quiz-section { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品味二分法測驗</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .quiz-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .progress {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      min-height: 3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.4;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .option-btn {
+      padding: 15px;
+      border: 2px solid #3498db;
+      border-radius: 12px;
+      background: white;
+      color: #3498db;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option-btn:hover {
+      background: #3498db;
+      color: white;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    #quiz-section,
+    #recommend-section {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="quiz-card">
-        <div id="nickname-section">
-            <h2>首先，請告訴我們您的暱稱</h2>
-            <input type="text" id="nickname" placeholder="輸入暱稱..." style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ddd;">
-            <button class="option-btn" style="width: 100%;" onclick="startQuiz()">開始測驗</button>
-        </div>
-
-        <div id="quiz-section">
-            <div class="progress" id="progress">第 1 / 5 題</div>
-            <h2 id="question-text">載入中...</h2>
-            <div class="options">
-                <button class="option-btn" id="optA" onclick="handleChoice('A')">選項 A</button>
-                <button class="option-btn" id="optB" onclick="handleChoice('B')">選項 B</button>
-            </div>
-        </div>
+  <div class="quiz-card">
+    <div id="nickname-section">
+      <h2>首先，請告訴我們您的暱稱</h2>
+      <input type="text" id="nickname" placeholder="例如：小明">
+      <button class="option-btn" style="width: 100%;" onclick="startQuiz()">開始測驗</button>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <div id="quiz-section">
+      <div class="progress" id="progress">第 1 / 5 題</div>
+      <h2 id="question-text">載入中...</h2>
+      <div class="options">
+        <button class="option-btn" id="optA" onclick="handleChoice('A')">選項 A</button>
+        <button class="option-btn" id="optB" onclick="handleChoice('B')">選項 B</button>
+      </div>
+    </div>
 
-        const firebaseConfig = { /* 這裡填入你的 Firebase Config */ };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    <div id="recommend-section">
+      <h2>最後一棒！<br>分享一個您的私藏景點</h2>
+      <input type="text" id="user_recommend" placeholder="例如：赤峰街的某家藝廊">
+      <button class="option-btn" style="width: 100%; background: #27ae60; border-color: #27ae60; color: white;"
+        onclick="saveToFirebase()">送出並看結果</button>
+    </div>
+  </div>
 
-        const questions = [
-            { q: "你更喜歡在什麼樣的地方待著？", a: "安靜老宅咖啡廳", b: "現代工業風酒吧", tags: ["安靜", "熱鬧"] },
-            { q: "週末下午的行程，你傾向？", a: "戶外草地野餐", b: "室內看展覽", tags: ["戶外", "室內"] },
-            { q: "你對藝術的品味是？", a: "經典古典繪畫", b: "前衛數位藝術", tags: ["古典", "前衛"] },
-            { q: "旅行時，你更在意？", a: "深入當地巷弄", b: "造訪知名地標", tags: ["巷弄", "地標"] },
-            { q: "最後，關於吃的？", a: "精緻預約制料理", b: "在地排隊小吃", tags: ["精緻", "平民"] }
-        ];
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        let currentStep = 0;
-        let userNickname = "";
-        let userTags = [];
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
+      authDomain: "moudouken.firebaseapp.com",
+      projectId: "moudouken",
+      storageBucket: "moudouken.firebasestorage.app",
+      messagingSenderId: "72234130648",
+      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
+    };
 
-        window.startQuiz = function() {
-            userNickname = document.getElementById('nickname').value;
-            if (!userNickname) return alert("請輸入暱稱");
-            document.getElementById('nickname-section').style.display = 'none';
-            document.getElementById('quiz-section').style.display = 'block';
-            showQuestion();
-        }
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        function showQuestion() {
-            const q = questions[currentStep];
-            document.getElementById('progress').textContent = `第 ${currentStep + 1} / ${questions.length} 題`;
-            document.getElementById('question-text').textContent = q.q;
-            document.getElementById('optA').textContent = q.a;
-            document.getElementById('optB').textContent = q.b;
-        }
+    const questions = [
+      { q: "你更喜歡在什麼樣的地方待著？", a: "安靜老宅咖啡廳", b: "現代工業風酒吧", tags: ["安靜", "熱鬧"] },
+      { q: "週末下午的行程，你傾向？", a: "戶外草地野餐", b: "室內看展覽", tags: ["戶外", "室內"] },
+      { q: "你對藝術的品味是？", a: "經典古典繪畫", b: "前衛數位藝術", tags: ["古典", "前衛"] },
+      { q: "旅行時，你更在意？", a: "深入當地巷弄", b: "造訪知名地標", tags: ["巷弄", "地標"] },
+      { q: "最後，關於吃的？", a: "精緻預約制料理", b: "在地排隊小吃", tags: ["精緻", "平民"] }
+    ];
 
-        window.handleChoice = async function(choice) {
-            // 根據選擇存入對應標籤
-            const tag = choice === 'A' ? questions[currentStep].tags[0] : questions[currentStep].tags[1];
-            userTags.push(tag);
+    let currentStep = 0;
+    let userNickname = "";
+    let userTags = [];
 
-            if (currentStep < questions.length - 1) {
-                currentStep++;
-                showQuestion();
-            } else {
-                // 測驗結束，存入資料庫
-                await saveToFirebase();
-            }
-        }
+    // 修正：將函數掛載到 window，讓 onclick 抓得到
+    window.startQuiz = function () {
+      userNickname = document.getElementById('nickname').value;
+      if (!userNickname) return alert("請輸入暱稱");
+      document.getElementById('nickname-section').style.display = 'none';
+      document.getElementById('quiz-section').style.display = 'block';
+      showQuestion();
+    };
 
-        async function saveToFirebase() {
-            try {
-                await addDoc(collection(db, 'User_Profiles'), {
-                    nickname: userNickname,
-                    travel_prefs: userTags, // 這裡存入二分法產生的標籤
-                    created_at: new Date()
-                });
-                alert("測驗完成！正在為您配對相似品味的人...");
-                window.location.href = 'recommendations.html';
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    </script>
+    function showQuestion() {
+      const q = questions[currentStep];
+      document.getElementById('progress').textContent = `第 ${currentStep + 1} / ${questions.length} 題`;
+      document.getElementById('question-text').textContent = q.q;
+      document.getElementById('optA').textContent = q.a;
+      document.getElementById('optB').textContent = q.b;
+    }
+
+    window.handleChoice = function (choice) {
+      const tag = choice === 'A' ? questions[currentStep].tags[0] : questions[currentStep].tags[1];
+      userTags.push(tag);
+
+      if (currentStep < questions.length - 1) {
+        currentStep++;
+        showQuestion();
+      } else {
+        // 跳到分享景點
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('recommend-section').style.display = 'block';
+      }
+    };
+
+    window.saveToFirebase = async function () {
+      const recommend = document.getElementById('user_recommend').value;
+      if (!recommend) return alert("請分享一個景點唷！");
+
+      try {
+        await addDoc(collection(db, 'User_Profiles'), {
+          nickname: userNickname,
+          travel_prefs: userTags,
+          user_recommend: recommend,
+          created_at: new Date()
+        });
+        window.location.href = 'recommendations.html';
+      } catch (e) {
+        console.error(e);
+        alert("儲存失敗，請再試一次");
+      }
+    };
+  </script>
 </body>
+
 </html>
