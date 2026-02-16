@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>註冊品味帳號</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #7f8c8d;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: #ccc;
+      font-size: 0.8rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+      margin: 0 10px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-btn {
+      background: white;
+      color: #757575;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+
+    .google-btn:hover {
+      background: #f8f9fa;
+      border-color: #ccc;
+    }
+
+    .google-btn img {
+      width: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .email-btn {
+      background: #27ae60;
+      color: white;
+      border: none;
+    }
+
+    .email-btn:hover {
+      background: #219150;
+    }
+
+    .link {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #7f8c8d;
+    }
+
+    .link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>建立帳號</h2>
+    <p>註冊以儲存您的專屬品味地圖</p>
+
+    <button class="google-btn btn" onclick="signInWithGoogle()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon">
+      使用 Google 註冊
+    </button>
+
+    <div class="divider">或者使用 Email</div>
+
+    <input type="email" id="email" placeholder="輸入 Email">
+    <input type="password" id="password" placeholder="設定密碼 (至少 6 位)">
+    <button class="email-btn btn" onclick="handleRegister()">立即註冊</button>
+
+    <div class="link">
+      已有帳號？ <a href="login.html">返回登入</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // Firebase 配置 (請保持與其他檔案一致)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
+      authDomain: "moudouken.firebaseapp.com",
+      projectId: "moudouken",
+      storageBucket: "moudouken.firebasestorage.app",
+      messagingSenderId: "72234130648",
+      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Google 註冊/登入邏輯
+    window.signInWithGoogle = async function () {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        console.log("User:", result.user);
+        window.location.href = 'quiz.html';
+      } catch (error) {
+        alert("Google 登入失敗：" + error.message);
+      }
+    };
+
+    // Email 註冊邏輯
+    window.handleRegister = async function () {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (password.length < 6) return alert("密碼長度至少需要 6 位");
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("註冊成功！");
+        window.location.href = 'quiz.html';
+      } catch (error) {
+        alert("註冊失敗：" + error.message);
+      }
+    };
+  </script>
+</body>
+
+</html>

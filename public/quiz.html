@@ -191,6 +191,15 @@
     };
 
     window.saveToFirebase = async function () {
+      // 在 quiz.html 的 saveToFirebase 中
+      const user = auth.currentUser; // 取得當前登入的 user ID
+      await addDoc(collection(db, 'User_Profiles'), {
+        userId: user.uid, // 連結帳號
+        nickname: userNickname,
+        travel_prefs: userTags,
+        user_recommend: recommend,
+        created_at: new Date()
+      });
       const recommend = document.getElementById('user_recommend').value;
       if (!recommend) return alert("請分享一個景點唷！");
 

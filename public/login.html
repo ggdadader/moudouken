@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入品味空間</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #7f8c8d;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: #ccc;
+      font-size: 0.8rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+      margin: 0 10px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-btn {
+      background: white;
+      color: #757575;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+
+    .google-btn:hover {
+      background: #f8f9fa;
+      border-color: #ccc;
+    }
+
+    .google-btn img {
+      width: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .email-btn {
+      background: #3498db;
+      color: white;
+    }
+
+    .email-btn:hover {
+      background: #2980b9;
+    }
+
+    .link {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #7f8c8d;
+    }
+
+    .link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>歡迎回來</h2>
+    <p>登入以同步您的專屬品味標籤</p>
+
+    <button class="google-btn btn" onclick="signInWithGoogle()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon">
+      使用 Google 帳號登入
+    </button>
+
+    <div class="divider">或者使用 Email</div>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="密碼">
+    <button class="email-btn btn" onclick="handleLogin()">登入</button>
+
+    <div class="link">
+      還沒有帳號？ <a href="register.html">立即註冊</a>
+    </div>
+  </div>
