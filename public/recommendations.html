@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>品味配對結果</title>
+  <title>為您配對靈魂伴侶</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f7f6;
+      background-color: #f0f2f5;
       padding: 20px;
       text-align: center;
       color: #2c3e50;
@@ -23,24 +23,32 @@
       margin: 30px auto;
     }
 
+    .match-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #27ae60;
+      margin-bottom: 10px;
+    }
+
     .recommendation-box {
-      background: #fff;
+      background: #f9f9f9;
       border: 1px solid #eee;
       padding: 20px;
       text-align: left;
       border-radius: 12px;
       margin: 20px 0;
-      border-left: 6px solid #3498db;
+      border-left: 6px solid #e67e22;
     }
 
     .tag {
       display: inline-block;
-      background: #e1f5fe;
-      color: #01579b;
-      padding: 4px 10px;
+      background: #e0f7fa;
+      color: #006064;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 0.8rem;
-      margin: 2px;
+      margin: 3px;
+      font-weight: bold;
     }
 
     .back-btn {
@@ -51,39 +59,38 @@
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 20px;
+      width: 80%;
     }
 
     .map-link {
-      color: #e67e22;
+      color: #d35400;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    #loading {
-      font-style: italic;
-      color: #888;
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>品味配對成功！</h1>
-    <p class="welcome-text">你好，<span id="userName">...</span></p>
-    <p style="font-size: 0.9rem; color: #7f8c8d;">您的品味標籤：<br><span id="userTags"></span></p>
+    <div class="match-header">✨ 測驗完成！</div>
+    <p>你好，<span id="userName" style="font-weight:bold;">...</span>！<br>我們根據您的測驗結果找到了相似的靈魂：</p>
+    <p><span id="userTags"></span></p>
 
-    <div id="loading">正在搜尋相似靈魂的推薦...</div>
-    <div id="recommend-list"></div>
+    <div id="recommend-list">
+      <p style="font-style:italic; color:#888;">正在為您計算最佳配對...</p>
+    </div>
 
-    <a href="quiz.html" class="back-btn">重新測驗</a>
+    <a href="quiz.html" class="back-btn" style="background:#95a5a6;">重新測驗</a>
+    <br>
+    <a href="profile_input.html" style="font-size:0.8rem; color:#3498db; text-decoration:none;">我想設定更詳細的偏好...</a>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, limit, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+    // Firebase 配置 (請確認這裡的 apiKey 等資訊是正確的)
     const firebaseConfig = {
       apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
       authDomain: "moudouken.firebaseapp.com",
@@ -92,7 +99,6 @@
       messagingSenderId: "72234130648",
       appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
     };
-
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -108,49 +114,54 @@
 
         // 顯示標籤
         const tagsContainer = document.getElementById('userTags');
-        currentUser.travel_prefs.forEach(tag => {
-          const span = document.createElement('span');
-          span.className = 'tag';
-          span.textContent = '#' + tag;
-          tagsContainer.appendChild(span);
-        });
+        if (currentUser.travel_prefs) {
+          currentUser.travel_prefs.forEach(tag => {
+            const span = document.createElement('span');
+            span.className = 'tag';
+            span.textContent = tag;
+            tagsContainer.appendChild(span);
+          });
+        }
 
-        // 2. 尋找相似推薦 (找出至少有一個標籤相同的人)
+        // 2. 尋找相似推薦
+        if (!currentUser.travel_prefs || currentUser.travel_prefs.length === 0) return;
+
         const qSimilar = query(
           collection(db, "User_Profiles"),
           where("travel_prefs", "array-contains-any", currentUser.travel_prefs),
-          limit(10)
+          limit(5)
         );
 
         const snapSimilar = await getDocs(qSimilar);
         const listDiv = document.getElementById('recommend-list');
-        document.getElementById('loading').style.display = 'none';
+        listDiv.innerHTML = ''; // 清空載入中字樣
 
         let found = false;
         snapSimilar.forEach(doc => {
           const data = doc.data();
-          // 排除自己，且對方必須有推薦景點
           if (data.nickname !== currentUser.nickname && data.user_recommend) {
             found = true;
             const item = document.createElement('div');
             item.className = 'recommendation-box';
+
+            // 使用正確的 Maps 連結格式
             const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.user_recommend)}`;
 
             item.innerHTML = `
-                            <div style="font-size: 0.8rem; color: #888; margin-bottom: 5px;">
-                                與您品味相似的 <strong>${data.nickname}</strong> 推薦了：
+                            <div style="font-size:0.85rem; color:#555;">
+                                <strong>${data.nickname}</strong> 的品味與您相似，推薦您：
                             </div>
-                            <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">
+                            <div style="font-size:1.2rem; font-weight:bold; margin: 8px 0; color:#2c3e50;">
                                 ${data.user_recommend}
                             </div>
-                            <a href="${mapUrl}" target="_blank" class="map-link">📍 在地圖上查看</a>
+                            <a href="${mapUrl}" target="_blank" class="map-link">📍 在 Google 地圖查看</a>
                         `;
             listDiv.appendChild(item);
           }
         });
 
         if (!found) {
-          listDiv.innerHTML = "<p style='color:#888;'>目前還沒有相似的人分享推薦，去當第一個分享的人吧！</p>";
+          listDiv.innerHTML = "<p style='color:#888;'>目前暫無與您標籤匹配的推薦，您可以分享自己的私藏景點！</p>";
         }
 
       } catch (error) {
