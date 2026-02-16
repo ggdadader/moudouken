@@ -4,42 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>品味推薦結果</title>
+  <title>品味配對結果</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #f4f7f6;
       padding: 20px;
       text-align: center;
+      color: #2c3e50;
     }
 
     .card {
       background: white;
       padding: 30px;
-      border-radius: 16px;
+      border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      max-width: 600px;
+      max-width: 500px;
       margin: 30px auto;
     }
 
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
-    }
-
-    .welcome-text {
-      font-size: 1.2rem;
-      color: #555;
-      margin-bottom: 2rem;
-    }
-
     .recommendation-box {
-      background: #f9f9f9;
-      border-left: 5px solid #27ae60;
+      background: #fff;
+      border: 1px solid #eee;
       padding: 20px;
       text-align: left;
-      border-radius: 8px;
-      margin-bottom: 2rem;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 6px solid #3498db;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e1f5fe;
+      color: #01579b;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin: 2px;
     }
 
     .back-btn {
@@ -50,115 +51,114 @@
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      transition: background 0.3s;
+      margin-top: 10px;
     }
 
-    .back-btn:hover {
-      background: #2980b9;
+    .map-link {
+      color: #e67e22;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    #loading {
+      font-style: italic;
+      color: #888;
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>專屬您的品味推薦</h1>
-    <p class="welcome-text">你好，<span id="userName">旅行者</span>！</p>
+    <h1>品味配對成功！</h1>
+    <p class="welcome-text">你好，<span id="userName">...</span></p>
+    <p style="font-size: 0.9rem; color: #7f8c8d;">您的品味標籤：<br><span id="userTags"></span></p>
 
-    <div class="recommendation-box">
-      <h3>✨ 為您推薦</h3>
-      <p id="recommend-content">載入中...</p>
-      <div id="feedback-actions" style="display:none; gap: 10px;">
-        <button onclick="submitFeedback(true)"
-          style="background:#27ae60; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">❤️
-          喜歡，收進口袋</button>
-        <button onclick="submitFeedback(false)"
-          style="background:#95a5a6; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">✖
-          不感興趣</button>
-      </div>
-    </div>
-    <div class="card" id="quiz-box">
-      <h4>測測你的品味細節：</h4>
-      <p id="question-text">你更喜歡「安靜的古著店」還是「熱鬧的創意市集」？</p>
-      <div style="display:flex; gap:10px; justify-content:center;">
-        <button onclick="savePreference('古著店')" class="back-btn" style="background:#8e44ad;">古著店</button>
-        <button onclick="savePreference('市集')" class="back-btn" style="background:#d35400;">市集</button>
-      </div>
-    </div>
+    <div id="loading">正在搜尋相似靈魂的推薦...</div>
+    <div id="recommend-list"></div>
 
-    <a href="profile_input.html" class="back-btn">重新填寫檔案</a>
+    <a href="quiz.html" class="back-btn">重新測驗</a>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, limit, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const firebaseConfig = { /* 你的 Config 保持不變 */ };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
+      authDomain: "moudouken.firebaseapp.com",
+      projectId: "moudouken",
+      storageBucket: "moudouken.firebasestorage.app",
+      messagingSenderId: "72234130648",
+      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
+    };
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    async function fetchRecommendation() {
+    async function init() {
       try {
-        // 1. 抓取「目前使用者」的最新資料
+        // 1. 抓取最新測驗者
         const qLatest = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
         const snapLatest = await getDocs(qLatest);
-
         if (snapLatest.empty) return;
+
         const currentUser = snapLatest.docs[0].data();
         document.getElementById('userName').textContent = currentUser.nickname;
 
-        // 2. 尋找「偏好相似」的其他使用者
-        // 這裡我們先簡單用「其中一個旅遊偏好一樣」來當作相似
-        const myFirstPref = currentUser.travel_prefs[0] || "都市漫步";
+        // 顯示標籤
+        const tagsContainer = document.getElementById('userTags');
+        currentUser.travel_prefs.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'tag';
+          span.textContent = '#' + tag;
+          tagsContainer.appendChild(span);
+        });
 
+        // 2. 尋找相似推薦 (找出至少有一個標籤相同的人)
         const qSimilar = query(
           collection(db, "User_Profiles"),
-          where("travel_prefs", "array-contains", myFirstPref),
-          limit(5)
+          where("travel_prefs", "array-contains-any", currentUser.travel_prefs),
+          limit(10)
         );
 
         const snapSimilar = await getDocs(qSimilar);
-        let suggestions = [];
+        const listDiv = document.getElementById('recommend-list');
+        document.getElementById('loading').style.display = 'none';
 
+        let found = false;
         snapSimilar.forEach(doc => {
           const data = doc.data();
-          // 排除掉自己，且要有推薦內容
+          // 排除自己，且對方必須有推薦景點
           if (data.nickname !== currentUser.nickname && data.user_recommend) {
-            suggestions.push(`${data.nickname} 推薦了：${data.user_recommend}`);
+            found = true;
+            const item = document.createElement('div');
+            item.className = 'recommendation-box';
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.user_recommend)}`;
+
+            item.innerHTML = `
+                            <div style="font-size: 0.8rem; color: #888; margin-bottom: 5px;">
+                                與您品味相似的 <strong>${data.nickname}</strong> 推薦了：
+                            </div>
+                            <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">
+                                ${data.user_recommend}
+                            </div>
+                            <a href="${mapUrl}" target="_blank" class="map-link">📍 在地圖上查看</a>
+                        `;
+            listDiv.appendChild(item);
           }
         });
-    async function savePreference(value) {
-          // 1. 找到目前使用者的 ID (或用之前的最新一筆)
-          // 2. 使用 updateDoc 把這個 value 加進他的 preferences 陣列
-          // 3. 換下一題 (切換 question-text)
-        }
-    async function submitFeedback(isPositive) {
-          const feedbackData = {
-            user_id: currentUserNickname, // 或是你的 User ID
-            target_recommendation: currentShownRecommend,
-            is_positive: isPositive,
-            timestamp: new Date()
-          };
 
-          // 存入 Firebase
-          await addDoc(collection(db, 'User_Feedbacks'), feedbackData);
-
-          alert(isPositive ? "已加入您的收藏！" : "了解，下次換個口味！");
-          // 之後可以觸發「下一題」
-          showNextQuestion();
-        }
-        // 3. 顯示結果
-        const recommendBox = document.querySelector('.recommendation-box p');
-        if (suggestions.length > 0) {
-          recommendBox.innerHTML = "根據與您偏好相似的使用者推薦：<br>● " + suggestions.join("<br>● ");
-        } else {
-          recommendBox.textContent = "目前還沒有跟你偏好相似的人分享，快邀請朋友來填寫吧！";
+        if (!found) {
+          listDiv.innerHTML = "<p style='color:#888;'>目前還沒有相似的人分享推薦，去當第一個分享的人吧！</p>";
         }
 
       } catch (error) {
-        console.error(error);
+        console.error("載入失敗:", error);
       }
     }
-    window.onload = fetchRecommendation;
+
+    window.onload = init;
   </script>
 </body>
 
