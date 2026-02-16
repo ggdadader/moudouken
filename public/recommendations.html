@@ -7,66 +7,81 @@
   <title>為您配對靈魂伴侶</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: #f0f2f5;
       padding: 20px;
       text-align: center;
       color: #2c3e50;
+      line-height: 1.6;
     }
-
+  
     .card {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
       max-width: 500px;
       margin: 30px auto;
     }
-
+  
     .match-header {
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.8rem;
+      font-weight: 800;
       color: #27ae60;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
-
+  
     .recommendation-box {
-      background: #f9f9f9;
+      background: #fbfbfb;
       border: 1px solid #eee;
-      padding: 20px;
+      padding: 25px;
       text-align: left;
-      border-radius: 12px;
-      margin: 20px 0;
+      border-radius: 16px;
+      margin: 25px 0;
       border-left: 6px solid #e67e22;
+      transition: transform 0.2s;
     }
-
+  
+    .recommendation-box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+  
     .tag {
       display: inline-block;
       background: #e0f7fa;
       color: #006064;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
-      margin: 3px;
-      font-weight: bold;
+      font-size: 0.85rem;
+      margin: 4px;
+      font-weight: 600;
     }
-
+  
     .back-btn {
       display: inline-block;
-      padding: 12px 24px;
+      padding: 15px 30px;
       background: #3498db;
       color: white;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      margin-top: 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 25px;
       width: 80%;
+      transition: background 0.2s;
     }
-
+  
+    .back-btn:hover {
+      background: #2980b9;
+    }
+  
     .map-link {
+      display: inline-block;
+      margin-top: 10px;
       color: #d35400;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
   </style>
 </head>
