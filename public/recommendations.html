@@ -65,8 +65,24 @@
     <p class="welcome-text">你好，<span id="userName">旅行者</span>！</p>
 
     <div class="recommendation-box">
-      <h3>✨ 今日推薦</h3>
-      <p>根據您的偏好，我們建議您今天可以前往附近的藝術館進行一場心靈之旅，或是尋找一家隱藏在巷弄中的特色咖啡廳享受悠閒時光。</p>
+      <h3>✨ 為您推薦</h3>
+      <p id="recommend-content">載入中...</p>
+      <div id="feedback-actions" style="display:none; gap: 10px;">
+        <button onclick="submitFeedback(true)"
+          style="background:#27ae60; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">❤️
+          喜歡，收進口袋</button>
+        <button onclick="submitFeedback(false)"
+          style="background:#95a5a6; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">✖
+          不感興趣</button>
+      </div>
+    </div>
+    <div class="card" id="quiz-box">
+      <h4>測測你的品味細節：</h4>
+      <p id="question-text">你更喜歡「安靜的古著店」還是「熱鬧的創意市集」？</p>
+      <div style="display:flex; gap:10px; justify-content:center;">
+        <button onclick="savePreference('古著店')" class="back-btn" style="background:#8e44ad;">古著店</button>
+        <button onclick="savePreference('市集')" class="back-btn" style="background:#d35400;">市集</button>
+      </div>
     </div>
 
     <a href="profile_input.html" class="back-btn">重新填寫檔案</a>
@@ -110,7 +126,26 @@
             suggestions.push(`${data.nickname} 推薦了：${data.user_recommend}`);
           }
         });
+    async function savePreference(value) {
+          // 1. 找到目前使用者的 ID (或用之前的最新一筆)
+          // 2. 使用 updateDoc 把這個 value 加進他的 preferences 陣列
+          // 3. 換下一題 (切換 question-text)
+        }
+    async function submitFeedback(isPositive) {
+          const feedbackData = {
+            user_id: currentUserNickname, // 或是你的 User ID
+            target_recommendation: currentShownRecommend,
+            is_positive: isPositive,
+            timestamp: new Date()
+          };
 
+          // 存入 Firebase
+          await addDoc(collection(db, 'User_Feedbacks'), feedbackData);
+
+          alert(isPositive ? "已加入您的收藏！" : "了解，下次換個口味！");
+          // 之後可以觸發「下一題」
+          showNextQuestion();
+        }
         // 3. 顯示結果
         const recommendBox = document.querySelector('.recommendation-box p');
         if (suggestions.length > 0) {
