@@ -4,191 +4,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>為您配對靈魂伴侶</title>
+  <title>您的品味地圖 | Taste Matching</title>
   <style>
+    :root {
+      --primary: #3498db;
+      --bg: #0a0a0a;
+      --card-bg: #1a1a1a;
+    }
+
     body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f0f2f5;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .header {
+      margin-top: 50px;
       text-align: center;
-      color: #2c3e50;
-      line-height: 1.6;
+      animation: fadeIn 1s ease;
     }
-  
-    .card {
-      background: white;
-      padding: 40px;
-      border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
-      max-width: 500px;
-      margin: 30px auto;
+
+    .header h1 {
+      font-size: 0.9rem;
+      letter-spacing: 5px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-  
-    .match-header {
+
+    .header p {
       font-size: 1.8rem;
       font-weight: 800;
-      color: #27ae60;
+      margin: 0;
+    }
+
+    .result-container {
+      width: 90%;
+      max-width: 500px;
+      margin-top: 40px;
+      animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* 核心推薦卡片 */
+    .main-card {
+      background: var(--card-bg);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 250px;
+      background: #333;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
       margin-bottom: 15px;
+      flex-wrap: wrap;
     }
-  
-    .recommendation-box {
-      background: #fbfbfb;
-      border: 1px solid #eee;
-      padding: 25px;
-      text-align: left;
-      border-radius: 16px;
-      margin: 25px 0;
-      border-left: 6px solid #e67e22;
-      transition: transform 0.2s;
-    }
-  
-    .recommendation-box:hover {
-      transform: scale(1.02);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-  
+
     .tag {
-      display: inline-block;
-      background: #e0f7fa;
-      color: #006064;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin: 4px;
-      font-weight: 600;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 50px;
+      background: rgba(52, 152, 219, 0.1);
+      color: var(--primary);
+      border: 1px solid var(--primary);
     }
-  
-    .back-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      background: #3498db;
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 600;
-      margin-top: 25px;
-      width: 80%;
-      transition: background 0.2s;
+
+    .place-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
-  
-    .back-btn:hover {
-      background: #2980b9;
-    }
-  
-    .map-link {
-      display: inline-block;
-      margin-top: 10px;
-      color: #d35400;
-      text-decoration: none;
-      font-weight: 600;
+
+    .place-desc {
       font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    /* 按鈕群 */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 16px;
+      border-radius: 15px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      background: #222;
+    }
+
+    .footer-link {
+      margin-top: 40px;
+      padding-bottom: 50px;
+      text-align: center;
+    }
+
+    .footer-link a {
+      color: #555;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    .footer-link a:hover {
+      color: var(--primary);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="match-header">✨ 測驗完成！</div>
-    <p>你好，<span id="userName" style="font-weight:bold;">...</span>！<br>我們根據您的測驗結果找到了相似的靈魂：</p>
-    <p><span id="userTags"></span></p>
 
-    <div id="recommend-list">
-      <p style="font-style:italic; color:#888;">正在為您計算最佳配對...</p>
+  <div class="header">
+    <h1>Match Result</h1>
+    <p id="match-status">找到最契合的靈魂座標</p>
+  </div>
+
+  <div class="result-container">
+    <div class="main-card">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
+        class="hero-img" alt="推薦地點">
+      <div class="content">
+        <div class="tag-row" id="tag-container">
+        </div>
+        <div class="place-name" id="place-name">載入中...</div>
+        <div class="place-desc" id="place-desc">正在從數據中提取最適合您的空間...</div>
+
+        <div class="btn-group">
+          <a href="#" id="google-map" class="btn btn-primary" target="_blank">📍 開啟地圖導航</a>
+          <a href="quiz.html" class="btn btn-outline">🔄 重新定位品味</a>
+        </div>
+      </div>
     </div>
-
-    <a href="quiz.html" class="back-btn" style="background:#95a5a6;">重新測驗</a>
-    <br>
-    <a href="profile_input.html" style="font-size:0.8rem; color:#3498db; text-decoration:none;">我想設定更詳細的偏好...</a>
-  </div>
-  <div id="login-tip" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-    <p style="font-size: 0.85rem; color: #7f8c8d;">想讓這份清單跟著你走嗎？</p>
-    <a href="login.html" style="color: #3498db; font-weight: bold; text-decoration: none;">🔐 登入儲存品味檔案</a>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, limit, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  <div class="footer-link">
+    <a href="login.html">🔐 登入帳號以永久儲存此地點</a>
+  </div>
 
-    // Firebase 配置 (請確認這裡的 apiKey 等資訊是正確的)
-    const firebaseConfig = {
-      apiKey: "AIzaSyDLH0QU1G_mVos9WbvmqwZl0Fm-yh_-m64",
-      authDomain: "moudouken.firebaseapp.com",
-      projectId: "moudouken",
-      storageBucket: "moudouken.firebasestorage.app",
-      messagingSenderId: "72234130648",
-      appId: "1:72234130648:web:222bb9de00befe0a0d0bad"
-    };
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const resultData = JSON.parse(localStorage.getItem('quizResult'));
 
-    async function init() {
-      try {
-        // 1. 抓取最新測驗者
-        const qLatest = query(collection(db, "User_Profiles"), orderBy("created_at", "desc"), limit(1));
-        const snapLatest = await getDocs(qLatest);
-        if (snapLatest.empty) return;
+      if (resultData) {
+        document.getElementById('place-name').innerText = resultData.name;
+        document.getElementById('place-desc').innerText = resultData.desc;
 
-        const currentUser = snapLatest.docs[0].data();
-        document.getElementById('userName').textContent = currentUser.nickname;
+        // 處理地圖連結
+        const mapLink = document.getElementById('google-map');
+        mapLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(resultData.name + " 台北")}`;
 
-        // 顯示標籤
-        const tagsContainer = document.getElementById('userTags');
-        if (currentUser.travel_prefs) {
-          currentUser.travel_prefs.forEach(tag => {
-            const span = document.createElement('span');
-            span.className = 'tag';
-            span.textContent = tag;
-            tagsContainer.appendChild(span);
-          });
-        }
-
-        // 2. 尋找相似推薦
-        if (!currentUser.travel_prefs || currentUser.travel_prefs.length === 0) return;
-
-        const qSimilar = query(
-          collection(db, "User_Profiles"),
-          where("travel_prefs", "array-contains-any", currentUser.travel_prefs),
-          limit(5)
-        );
-
-        const snapSimilar = await getDocs(qSimilar);
-        const listDiv = document.getElementById('recommend-list');
-        listDiv.innerHTML = ''; // 清空載入中字樣
-
-        let found = false;
-        snapSimilar.forEach(doc => {
-          const data = doc.data();
-          if (data.nickname !== currentUser.nickname && data.user_recommend) {
-            found = true;
-            const item = document.createElement('div');
-            item.className = 'recommendation-box';
-
-            // 使用正確的 Maps 連結格式
-            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.user_recommend)}`;
-
-            item.innerHTML = `
-                            <div style="font-size:0.85rem; color:#555;">
-                                <strong>${data.nickname}</strong> 的品味與您相似，推薦您：
-                            </div>
-                            <div style="font-size:1.2rem; font-weight:bold; margin: 8px 0; color:#2c3e50;">
-                                ${data.user_recommend}
-                            </div>
-                            <a href="${mapUrl}" target="_blank" class="map-link">📍 在 Google 地圖查看</a>
-                        `;
-            listDiv.appendChild(item);
-          }
+        // 注入標籤
+        const tagContainer = document.getElementById('tag-container');
+        resultData.tags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'tag';
+          span.innerText = `#${tag}`;
+          tagContainer.appendChild(span);
         });
-
-        if (!found) {
-          listDiv.innerHTML = "<p style='color:#888;'>目前暫無與您標籤匹配的推薦，您可以分享自己的私藏景點！</p>";
-        }
-
-      } catch (error) {
-        console.error("載入失敗:", error);
+      } else {
+        window.location.href = 'quiz.html';
       }
-    }
-
-    window.onload = init;
+    });
   </script>
 </body>
 
